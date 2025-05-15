@@ -1,6 +1,7 @@
 import validateData from "./validateData";
 import axios from "axios"
 import dotenv from "dotenv"
+import { BACKEND_URL, WS_URL } from "./config";
 dotenv.config()
 
 async function waitForWebSocket(url:string) {
@@ -25,7 +26,7 @@ async function waitForWebSocket(url:string) {
             const msg=JSON.parse(e.data)
             const returnData=await validateData(msg)
             console.log(returnData)
-            await axios.post(process.env.BACKEND_URL as string, returnData).then((response:any) =>{
+            await axios.post(BACKEND_URL as string, returnData).then((response:any) =>{
                 console.log("Response recieved: ");
                 console.log(response.data.error);
             }).catch(err =>{
@@ -36,5 +37,5 @@ async function waitForWebSocket(url:string) {
 }
 
 (async ()=>{
-    await waitForWebSocket(process.env.WS_URL as string)
+    await waitForWebSocket(WS_URL as string)
 })()
