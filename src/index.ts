@@ -28,7 +28,7 @@ async function waitForWebSocket(url:string) {
             console.log(returnData)
             await axios.post(BACKEND_URL as string, returnData).then((response:any) =>{
                 console.log("Response recieved: ");
-                console.log(response.data.error);
+                console.log(response.data);
             }).catch(err =>{
                 console.log(err);
             })
