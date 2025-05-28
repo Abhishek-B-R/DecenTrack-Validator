@@ -10,6 +10,14 @@ async function waitForWebSocket(url:string) {
 
         ws.onopen = () => {
             console.log("WebSocket Connected 🎉");
+
+            // Send ping every 30 seconds to keep the connection alive
+            setInterval(() => {
+                if (ws.readyState === ws.OPEN) {
+                    ws.send(JSON.stringify({ type: "ping" }));
+                }
+            }, 30_000);
+
             resolve(ws);
         };
 
